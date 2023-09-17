@@ -33,3 +33,31 @@ a,
     padding: 0 2rem;
   }
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'), url(../fonts/Inter-Medium.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF-Pro-Display'), url(../fonts/SF-Pro-Display-Medium.ttf);
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  font-family: 'SF Pro Display';
+  font-size: 14px;
+}
