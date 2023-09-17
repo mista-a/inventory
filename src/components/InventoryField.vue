@@ -3,6 +3,7 @@ import ItemIcon1 from '@/assets/temp/item-icons/item-icon-1.png'
 import ItemIcon2 from '@/assets/temp/item-icons/item-icon-2.png'
 import ItemIcon3 from '@/assets/temp/item-icons/item-icon-3.png'
 import { type ItemType } from '../types/item'
+import { ref } from 'vue'
 
 let items: ItemType[] = [
   {
@@ -33,13 +34,47 @@ let items: ItemType[] = [
     }
   }
 ]
+
+const itemDescription = ref(false)
+const choosedItem = ref<ItemType>({
+  id: 0,
+  count: 0,
+  icon: '',
+  description: {
+    header: '',
+    text: ''
+  }
+})
+
+const showItemDescription = () => {
+  itemDescription.value = true
+}
+
+const hideItemDescription = () => {
+  itemDescription.value = false
+}
+
+const chooseItem = (item: ItemType) => {
+  showItemDescription()
+  choosedItem.value = item
+}
+
+const deleteItemCount = (id: number, count: number) => {
+  items = items.map((item) => {
+    if (item.id === id) {
+      choosedItem.value = item
+      return { ...item, count: (item.count -= count) }
+    }
+    return item
+  })
+}
 </script>
 
 <template>
   <div class="wrapper">
     <div class="item-field">
       <div v-for="index in 25" :key="index" class="cell">
-        <div class="item" v-if="items[index - 1]">
+        <div class="item" v-if="items[index - 1]" @click="chooseItem({ ...items[index - 1] })">
           <div class="item-icon-wrapper">
             <img class="item-icon" :src="items[index - 1].icon" />
           </div>
@@ -49,6 +84,12 @@ let items: ItemType[] = [
         </div>
       </div>
     </div>
+    <ItemDescription
+      :choosedItem="choosedItem"
+      :active="itemDescription"
+      @close="hideItemDescription"
+      @change:itemCount="deleteItemCount"
+    />
   </div>
 </template>
 
