@@ -1,8 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import InventoryField from './components/InventoryField.vue'
+</script>
 
 <template>
   <main>
-    <div class="wrapper"></div>
+    <div class="wrapper">
+      <InventoryField />
+    </div>
   </main>
 </template>
 
